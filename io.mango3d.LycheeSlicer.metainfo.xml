@@ -30,6 +30,18 @@
   </content_rating>
 
   <releases>
+    <release version="5.4.3" date="2023-11-29">
+      <description>
+        <ul>
+          <li>Mac OS Sonoma compatibility, including the fix of the suction cup detector and island detection features.</li>
+          <li>The Island Detector not showing islands on objects has been fixed.</li>
+          <li>Supports created through the Magic tool no longer go through the model raft.</li>
+          <li>Advertising issues that reload while using Wifi export has been fixed.</li>
+          <li>Support painting first support was using the expected preset, but not following supports. It has been fixed.</li>
+          <li>Better detection of mouse/cursor position when click and dragging supports.</li>
+        </ul>
+      </description>
+    </release>
     <release version="5.4.0" date="2023-10-20">
       <description>
         <ul>
@@ -44,10 +56,10 @@
   <launchable type="desktop-id">io.mango3d.LycheeSlicer.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://mango3d.io/wp-content/uploads/2020/09/lychee_slicer_lotp.jpg</image>
+      <image>https://raw.githubusercontent.com/flathub/io.mango3d.LycheeSlicer/master/screenshots/screenshot1.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://thelionstower.com/cdn/shop/articles/lychee_screenshot.png</image>
+      <image>https://raw.githubusercontent.com/flathub/io.mango3d.LycheeSlicer/master/screenshots/screenshot2.jpg</image>
     </screenshot>
   </screenshots>
 </component>
