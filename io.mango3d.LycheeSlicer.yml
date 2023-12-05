@@ -36,6 +36,11 @@ modules:
         filename: lychee.deb
         sha256: 05a59bb976bd24ea64c676e9d1019546fc6b1990d41df67ea4271302fdb56f1e
         size: 118357130
+        x-checker-data:
+          - type: html
+            url: https://mango3d.io/downloads
+            version-pattern: "Current version: ([\\d\\.]+)"
+            url-template: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-${version}.deb
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
