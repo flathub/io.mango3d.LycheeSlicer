@@ -4,7 +4,11 @@
   
   <name>Lychee Slicer</name>
   <summary>A powerful and versatile Slicer for Resin and Filament 3D Printers</summary>
-  
+
+  <developer id="io.mango3d">
+	  <name>Mango3D</name>
+  </developer>
+
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-proprietary=https://mango3d.io/terms-and-conditions/</project_license>
   
