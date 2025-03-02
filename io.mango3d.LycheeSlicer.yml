@@ -32,10 +32,10 @@ modules:
       - install -Dm755 apply_extra /app/bin/apply_extra
     sources:
       - type: extra-data
-        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.2.0.deb
+        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.2.2.deb
         filename: lychee.deb
-        sha256: a8e1db95518757a65cbd2109b407cdf0e55228cf8ef2f5861933b427a49e09c6
-        size: 121080788
+        sha256: 0d68af9c5d48c3c544fe371e5586ad30602fa2910e3905431232fb9b57a050fd
+        size: 122305242
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
