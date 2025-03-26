@@ -34,7 +34,27 @@
   </content_rating>
 
   <releases>
-    <release version="7.2.2" date="2025-02-13">
+    <release version="7.3.1" date="2025-03-26">
+      <description>
+        <ul>
+          <li>Fixed a critical bug that could corrupt scenes during certain geometry operations.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="7.3.0" date="2025-03-24">
+      <description>
+        <ul>
+          <li>CTRL + Shift + E Shortcut – The "Export Selected Object" shortcut now works as expected.</li>
+          <li>Saving Empty Scenes – Previously, attempting to save an empty scene was impossible. This has been fixed.</li>
+          <li>Transparent Navigation Tabs – The Resin and Filament menus no longer appear transparent when returning from Preferences.</li>
+          <li>External Drive Saving – On Windows, scene files (.lys) can now be saved at the root of a drive.</li>
+          <li>Shift + Drag Select for Supports – Selecting supports with SHIFT + drag now works consistently without deselecting other supports.</li>
+          <li>Reload Last Scene Dialog Checkbox – The “Do not show again” checkbox now properly prevents the dialog from reappearing.</li>
+          <li>Creality Halot One Screen Ratio – Corrected the height/width ratio in sliced files for the Creality Halot One, causing UVTools to alert on an incorrect ratio.</li>
+          <li>Hole Editing &amp; Wi-Fi Printer Reset – Gizmo no longer resets when using advanced features (planar cut, hole advanced mode) with a Wi-Fi printer connected.</li>
+          <li>Files Not Opening in Recent Versions – Fixed a bug causing some files from older versions to take a long time to open on recent versions, which worked fine in 5.2.</li>
+        </ul>
+      </description>
     </release>
     <release version="7.2.0" date="2024-12-12">
     </release>
@@ -66,9 +86,6 @@
   <launchable type="desktop-id">io.mango3d.LycheeSlicer.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/flathub/io.mango3d.LycheeSlicer/master/screenshots/screenshot1.jpg</image>
-    </screenshot>
-    <screenshot>
       <image>https://raw.githubusercontent.com/flathub/io.mango3d.LycheeSlicer/master/screenshots/screenshot2.png</image>
     </screenshot>
   </screenshots>
