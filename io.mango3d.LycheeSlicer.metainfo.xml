@@ -34,6 +34,16 @@
   </content_rating>
 
   <releases>
+    <release version="7.3.2" date="2025-04-23">
+      <description>
+        <ul>
+          <li>Fixed a critical bug that could corrupt scenes during certain geometry operations.</li>
+	  <li>Fixed broken Documentation Links - Several in-app links (e.g., general info, CTBV4 format, object notes, hollow blockers, late supports, community profile, exportable holes, and batch tools) were leading to 404 errors. They now correctly point to the right documentation pages.</li>
+          <li>Fixed incorrect Z Height for YMD Falcon Pro: the printer's Z value was incorrect—now set to the right size for accurate slicing.</li>
+	  <li>Fixed default Resin Profile Exposure Time on Voxelab Polaris The exposure time in the default resin profile was off.</li>
+	</ul>
+      </description>
+    </release>
     <release version="7.3.1" date="2025-03-26">
       <description>
         <ul>
