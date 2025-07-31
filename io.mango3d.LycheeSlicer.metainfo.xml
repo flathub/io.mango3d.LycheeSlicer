@@ -34,6 +34,13 @@
   </content_rating>
 
   <releases>
+    <release version="7.4.2" date="2025-07-30">
+      <description>
+        <ul>
+          <li>Fixed ViewCube functionality and improved Saved Views accuracy for correct plate snapping and positioning.</li>
+	</ul>
+      </description>
+    </release>
     <release version="7.4.1" date="2025-07-24">
       <description>
         <ul>
