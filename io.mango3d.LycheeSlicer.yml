@@ -1,9 +1,9 @@
 app-id: io.mango3d.LycheeSlicer
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: "24.08"
+base-version: '24.08'
 command: lycheeslicer
 tags:
   - proprietary
@@ -23,7 +23,7 @@ modules:
       - mkdir -p /app/bin
       - mkdir -p /app/lib
       - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so /app/lib
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libsframe.so.1 /app/lib
+      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libsframe.so.2 /app/lib
       - install -D /usr/bin/ar /app/bin/ar
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -D ${FLATPAK_ID}.png /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
@@ -32,10 +32,10 @@ modules:
       - install -Dm755 apply_extra /app/bin/apply_extra
     sources:
       - type: extra-data
-        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.4.1.deb
+        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.5.2.deb
         filename: lychee.deb
-        sha256: eb67165b934100a51a382fba4eba234cb9d66fc2ed33bd5adae1095dcd41a57b
-        size: 127521556
+        sha256: 0cacbd32f7f62f6d6033732796e9ad646d3e5cc88325941545a3eb7334fee234
+        size: 128146904
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
