@@ -40,7 +40,11 @@ def fetch_latest_version():
         if version_match:
             return version_match.group(1)
 
-    raise ValueError(f"Could not find version in any h1 tag. Found {len(headings)} h1 tags.")
+    heading_texts = [heading.text.strip() for heading in headings]
+    raise ValueError(
+        f"Could not find version in any h1 tag. Found {len(headings)} h1 tags. "
+        f"Headings found: {heading_texts}"
+    )
 
 
 def read_current_version(manifest_path):
