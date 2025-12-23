@@ -1,0 +1,53 @@
+name: Update Lychee Slicer Version
+
+on:
+  schedule:
+    # Run once a day at 10:00 UTC
+    - cron: "0 10 * * *"
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Check for new version and update manifest
+        id: check
+        run: |
+          python3 scripts/check_version.py
+
+      - name: Create Pull Request
+        if: steps.check.outputs.UPDATE_NEEDED == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Update Lychee Slicer to version ${{ steps.check.outputs.NEW_VERSION }}"
+          title: "Update Lychee Slicer to version ${{ steps.check.outputs.NEW_VERSION }}"
+          body: |
+            This PR updates Lychee Slicer to version ${{ steps.check.outputs.NEW_VERSION }}.
+
+            **Changes:**
+            - Updated download URL to: `${{ steps.check.outputs.NEW_URL }}`
+            - Updated SHA256 checksum to: `${{ steps.check.outputs.NEW_SHA256 }}`
+            - Updated file size to: ${{ steps.check.outputs.NEW_SIZE }} bytes
+
+            This PR was automatically created by the update-version workflow.
+          branch: update-lychee-slicer-${{ steps.check.outputs.NEW_VERSION }}
+          delete-branch: true
+          labels: |
+            automated
+            version-update
