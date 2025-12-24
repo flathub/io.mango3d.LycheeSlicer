@@ -34,6 +34,18 @@
   </content_rating>
 
   <releases>
+  	<release version="7.5.5" date="2025-12-17">
+  	  <description>
+  	    <ul>
+  	      <li>Added Piocreate Halot X1</li>
+  	      <li>Improved Overhang Support System</li>
+  	      <li>Smarter Suport Placement Between Close Islands</li>
+  	      <li>Maximum Angle for Reinforcement and Stabilization</li>
+  	      <li>Improved Reinforcement Point Placement</li>
+  	      <li>Mini Support Filtering</li>
+  		</ul>
+  	  </description>
+  	</release>
     <release version="7.4.1" date="2025-07-24">
       <description>
         <ul>
@@ -42,7 +54,7 @@
           <li>The “Outside” Plate: The Outside plate automatically collects objects from a plate that was deleted. It does not include all objects outside a build plate (unlike Bambu Studio). So an object may appear outside the plate in the 3D view but not be listed in the Outside plate. If you delete a plate containing objects, those objects will move to the “Outside” plate.</li>
           <li>Quick Selection Shortcut: Select all objects on the active plate using `Ctrl + Shift + A` Note: This shortcut currently does not select supports in Prepare mode — that’s coming in the next release!</li>
           <li>Moving Objects Between Plates using: Right-click in the object list - Right-click in the 3D view - The gizmo - Directly editing position values in the input fields</li>
-	</ul>
+		</ul>
       </description>
     </release>
     <release version="7.3.2" date="2025-04-23">
