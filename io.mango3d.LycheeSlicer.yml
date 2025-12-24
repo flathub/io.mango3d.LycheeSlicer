@@ -1,9 +1,9 @@
 app-id: io.mango3d.LycheeSlicer
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: "24.08"
+base-version: '24.08'
 command: lycheeslicer
 tags:
   - proprietary
@@ -32,10 +32,10 @@ modules:
       - install -Dm755 apply_extra /app/bin/apply_extra
     sources:
       - type: extra-data
-        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.4.1.deb
+        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.5.5.deb
         filename: lychee.deb
-        sha256: eb67165b934100a51a382fba4eba234cb9d66fc2ed33bd5adae1095dcd41a57b
-        size: 127521556
+        sha256: a4f38d701043b070c0dde2067c27dc5f48b396446e99c91ce93305b65466c38c
+        size: 128625682
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
