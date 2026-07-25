@@ -23,7 +23,7 @@ modules:
       - mkdir -p /app/bin
       - mkdir -p /app/lib
       - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so /app/lib
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libsframe.so.2 /app/lib
+      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libsframe.so.* /app/lib
       - install -D /usr/bin/ar /app/bin/ar
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -D ${FLATPAK_ID}.png /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
@@ -32,10 +32,10 @@ modules:
       - install -Dm755 apply_extra /app/bin/apply_extra
     sources:
       - type: extra-data
-        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.6.1.deb
+        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.6.6.deb
         filename: lychee.deb
-        sha256: e324d96486f35a4748facf8d1c2dda05eb41e54275c92f31fead8e93fe2f3960
-        size: 129013584
+        sha256: 9f5997c7d21b4381ba7cd063a1e667faf5253ba522e40453e53d3e5b6ef93390
+        size: 128557210
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
