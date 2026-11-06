@@ -1,9 +1,9 @@
 app-id: io.mango3d.LycheeSlicer
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
+base-version: '26.08'
 command: lycheeslicer
 tags:
   - proprietary
@@ -14,17 +14,23 @@ finish-args:
   - --device=dri
   - --filesystem=home
 modules:
+  - name: squashfs-tools
+    buildsystem: simple
+    build-commands:
+      - XZ_SUPPORT=1 LZO_SUPPORT=1 ZSTD_SUPPORT=1 GZIP_SUPPORT=1 make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin INSTALL_MANPAGES_DIR=${FLATPAK_DEST}/man/man1
+    cleanup:
+      - /man
+    sources:
+      - type: git
+        url: https://github.com/plougher/squashfs-tools.git
+        tag: 4.7.5
+        commit: 708c59ae80853b0845017c33b42e56061cc546cd
+
   - name: lycheeslicer
     only-arches:
       - x86_64
     buildsystem: simple
     build-commands:
-      - mkdir -p /app/opt
-      - mkdir -p /app/bin
-      - mkdir -p /app/lib
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so /app/lib
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libsframe.so.* /app/lib
-      - install -D /usr/bin/ar /app/bin/ar
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -D ${FLATPAK_ID}.png /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
       - install -D ${FLATPAK_ID}.desktop /app/share/applications/${FLATPAK_ID}.desktop
@@ -32,10 +38,10 @@ modules:
       - install -Dm755 apply_extra /app/bin/apply_extra
     sources:
       - type: extra-data
-        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-7.6.6.deb
-        filename: lychee.deb
-        sha256: 9f5997c7d21b4381ba7cd063a1e667faf5253ba522e40453e53d3e5b6ef93390
-        size: 128557210
+        url: https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-8.0.4-linux-x86_64.GLIBC-235.AppImage
+        filename: lychee.AppImage
+        sha256: 9d606d5728c1daddbf6efa472a2216049081325cd7297efdd51cacef82f9eb20
+        size: 296159736
       - type: file
         path: io.mango3d.LycheeSlicer.metainfo.xml
       - type: file
@@ -45,12 +51,19 @@ modules:
       - type: script
         dest-filename: lycheeslicer
         commands:
-          - zypak-wrapper /app/extra/LycheeSlicer/lycheeslicer "$@"
+          - zypak-wrapper /app/extra/LycheeSlicer/LycheeSlicer "$@"
       - type: script
         dest-filename: apply_extra
         commands:
-          - ar p lychee.deb data.tar.xz | tar xJ
-          - rm -f lychee.deb
-          - mv opt/LycheeSlicer .
-          - rm -rf usr
-          - rm -rf opt
+          - |
+            chmod +x lychee.AppImage
+            offset=""
+            for candidate in $(grep -aob -- 'hsqs' lychee.AppImage | cut -d: -f1); do
+              if unsquashfs -s -o "$candidate" lychee.AppImage >/dev/null 2>&1; then
+                offset="$candidate"
+              fi
+            done
+            test -n "$offset"
+            unsquashfs -o "$offset" -d squashfs-root lychee.AppImage
+            mv squashfs-root/opt/Lychee LycheeSlicer
+            rm -rf squashfs-root lychee.AppImage
