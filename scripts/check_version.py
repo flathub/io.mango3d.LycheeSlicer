@@ -10,6 +10,7 @@ This script:
 """
 
 import hashlib
+import json
 import os
 import re
 import sys
@@ -58,17 +59,61 @@ def read_current_version(manifest_path):
             for source in module['sources']:
                 if source.get('type') == 'extra-data':
                     url = source['url']
-                    version_match = re.search(r'LycheeSlicer-([\d.]+)\.deb', url)
+                    version_match = re.search(
+                        r'LycheeSlicer-([\d.]+)[^/]*\.(?:deb|AppImage)', url
+                    )
                     if version_match:
                         return version_match.group(1), source
 
     raise ValueError("Could not find extra-data source in manifest")
 
 
+def fetch_linux_download_url(version):
+    """Fetch the Linux (AppImage) download URL for a release."""
+    print(f"🔗 Looking up Linux download URL for {version}...")
+    response = requests.get('https://mango3d.io/download-lychee-slicer', timeout=10)
+    response.raise_for_status()
+
+    # Release data is embedded in a Next.js payload with escaped quotes.
+    text = response.text.replace('\\"', '"')
+    releases_start = text.find('"slicerReleases":')
+    if releases_start == -1:
+        raise ValueError("Could not find slicerReleases data on the download page")
+
+    release_match = re.search(
+        r'"version":"' + re.escape(version) + r'".*?"builds":\[(.*?)\]',
+        text[releases_start:],
+        re.DOTALL,
+    )
+    if not release_match:
+        raise ValueError(f"Could not find build information for version {version}")
+
+    builds = json.loads(f"[{release_match.group(1)}]")
+    linux_builds = [
+        build for build in builds
+        if 'linux' in build.get('target', '').lower()
+    ]
+    if not linux_builds:
+        raise ValueError(f"Could not find a Linux build for version {version}")
+
+    # Prefer the AppImage build when a release also provides a .deb.
+    build = next(
+        (build for build in linux_builds if 'app' in build['target'].lower()),
+        linux_builds[0],
+    )
+
+    # The download page uses short links; resolve to the real URL.
+    response = requests.get(build['url'], stream=True, timeout=30)
+    response.raise_for_status()
+    url = response.url
+    response.close()
+    return url
+
+
 def download_and_hash(url):
     """Download file and calculate SHA256 hash and size."""
     print(f"⬇️  Downloading: {url}")
-    print("   (This may take a while, the file is ~120MB)")
+    print("   (This may take a while, the file is ~280MB)")
 
     response = requests.get(url, stream=True, timeout=30)
     response.raise_for_status()
@@ -149,8 +194,8 @@ def main():
         print(f"   Latest:  {new_version}")
         print()
 
-        # Construct new URL
-        new_url = f"https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-{new_version}.deb"
+        # Fetch the current Linux download URL from the release page
+        new_url = fetch_linux_download_url(new_version)
         print(f"📦 New URL: {new_url}")
         print()
 
